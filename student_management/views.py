@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Student
 from .forms import StudentForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -11,7 +12,7 @@ def StudentList(request):
     return render(request, 'student_management/home.html', context={'students':students})
 
 
-
+@login_required
 def CreateStudent(request):
     if request.method == 'POST':
         form_data = StudentForm(request.POST, request.FILES)
@@ -40,7 +41,7 @@ def CreateStudent(request):
     return render(request, 'student_management/create_student.html', context={'form':form})
 
 
-
+@login_required
 def DeleteStudent(request, id):
     try:
         studet = Student.objects.get(id=id)
@@ -49,7 +50,8 @@ def DeleteStudent(request, id):
         return redirect('student_list')
     except Student.DoesNotExist:
         pass
-    
+
+@login_required  
 def UpdateStudent(request, id):
     try:
         student = Student.objects.get(id=id)

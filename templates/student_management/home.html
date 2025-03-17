@@ -10,6 +10,11 @@
 <div>
     <p class="h4 p-2 text-center ">Student List</p>
     {% include 'shared/message.html' %}
+    {% if user.is_authenticated %}
+    <p>Current User: {{user.username}}</p>
+    {% else %}
+    <p>No User Login!</p>
+    {% endif %}
     <table class="table px-4">
         <thead class="border">
             <tr>

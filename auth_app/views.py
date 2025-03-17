@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -19,12 +20,20 @@ def RegisterUser(request):
 def LoginUser(request):
     if request.method == 'POST':
         formd_data = AuthenticationForm(data = request.POST)
-        print("-------========-------")
+        print(formd_data.errors)
         if formd_data.is_valid():
-            print("{[[[[[[[]]]]]]]}")
-            username = request.cleaned_data('username')
-            passwaord = request.cleaned_data('passwaord')
+            username = formd_data.cleaned_data['username']
+            password = formd_data.cleaned_data['password']
+
+            user = authenticate(username=username, password=password)
             
-            print(username, passwaord)
+            if user:
+                login(request, user)
+                return redirect('/')
     forms = AuthenticationForm()
     return render(request, 'auth_app/login.html', context={'forms':forms})
+
+@login_required
+def UserLogout(request):
+    logout(request)
+    return redirect('/')
