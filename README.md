@@ -1,4 +1,4 @@
-# Student Management System
+# Student Management System assignment requirements
 
 ## Project Proposal
 This project will be a beginner-friendly yet practical application designed to help you understand and implement the concepts of forms, CRUD operations, and template management effectively.
