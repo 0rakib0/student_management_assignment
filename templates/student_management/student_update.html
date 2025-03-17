@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} Create | Student {% endblock %}
+
+
+{% block body %}
+
+<div style="width: 60%; margin: auto; padding: 4rem 2rem; background-color: rgb(255, 247, 234);">
+    {% include 'shared/message.html' %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="text-center h4 text-success">CREATE A NEW STUDENT</p>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+    </form>
+</div>
+
+
+{% endblock %}
